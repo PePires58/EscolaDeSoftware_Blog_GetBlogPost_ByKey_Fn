@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Escola de software - Blog - Get BlogPost by key - Lambda Function
+Parameters:
+  Environment:
+    Description: Environment
+    Type: String
+  S3BucketName:
+    Description: S3 Bucket Name
+    Type: String
+  BlogPostTableName:
+    Description: Blogpost table name
+    Type: String
+  BlogPostTableGetItemPolicy:
+    Description: BlogPost Table Policy
+    Type: String
+
+Resources:
+  GetBlogPostByKeyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Join ["_", [!Ref Environment, "GetBlogPostByKeyFn"]]
+      Description: Get Blogpost by key function
+      CodeUri: src/get-blog-post-by-key/
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      Timeout: 1
+      Policies:
+        - AmazonS3ReadOnlyAccess
+        - !Join [
+              '', 
+              ['arn:aws:iam::]', 
+              !Sub ${AWS::AccountId},':policy/', 
+              !Ref BlogPostTableGetItemPolicy]
+            ]
+      Environment:
+        Variables:
+          BlogPostContentBucketName:
+            !Join ["-", [!Ref Environment, !Ref S3BucketName]]
+          BlogPostTableName:
+            !Join ["_", [!Ref Environment, !Ref BlogPostTableName]]
+          Region: us-east-1
+Outputs:
+  GetBlogPostByKeyFunction:
+    Description: "Get BlogPost by key Lambda Function ARN"
+    Value: !GetAtt GetBlogPostByKeyFunction.Arn

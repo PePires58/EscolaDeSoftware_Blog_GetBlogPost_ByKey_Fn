@@ -1,0 +1,7 @@
+{
+  "Parameters": {
+    "Environment": "dev",
+    "S3BucketName": "blogpostcontent-bucket",
+    "BlogPostTableName": "escoladesoftware_blog_blogpost"
+  }
+}
