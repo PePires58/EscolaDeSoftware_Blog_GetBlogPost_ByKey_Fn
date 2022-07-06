@@ -20,7 +20,7 @@ jobs:
 
       - name: Deploy
         run: |
-          aws cloudformation deploy --template-file deploy.yaml --stack-name test-escoladesoftware-blog-blogpost-table --capabilities CAPABILITY_NAMED_IAM --parameter-overrides  file://infra/test.parameters.json
+          aws cloudformation deploy --template-file deploy.yaml --stack-name test-escoladesoftware-blog-getblogpost-bykey-fn --capabilities CAPABILITY_NAMED_IAM --parameter-overrides  file://infra/test.parameters.json
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
