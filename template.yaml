@@ -16,7 +16,7 @@ Resources:
   GetBlogPostByKeyFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Join ["_", [!Ref Environment, "GetBlogPostByKeyFn"]]
+      FunctionName: !Join ["_", [!Ref Environment, GetBlogPostByKeyFn]]
       Description: Get Blogpost by key function
       CodeUri: src/get-blog-post-by-key/
       Handler: app.lambdaHandler
@@ -26,13 +26,14 @@ Resources:
       Timeout: 1
       Policies:
         - AmazonS3ReadOnlyAccess
-        - Fn::Join: ['', ['arn:aws:iam::', !Sub ${AWS::AccountId}, :policy/,!Ref BlogPostTableGetItemPolicy]] 
+        - !Ref BlogPostTableGetItemPolicy
       Environment:
         Variables:
           BlogPostContentBucketName:
             !Join ["-", [!Ref Environment, !Ref S3BucketName]]
           BlogPostTableName:
-            Fn::Join: ["_",[!Ref Environment,Fn::ImportValue: BlogPostTableName]] 
+            Fn::Join:
+              ["_", [!Ref Environment, Fn::ImportValue: BlogPostTableName]]
           Region: us-east-1
 Outputs:
   GetBlogPostByKeyFunction:
