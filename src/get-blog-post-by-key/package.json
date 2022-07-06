@@ -1,10 +1,10 @@
 {
-  "name": "hello_world",
+  "name": "get_blog_post_by_key",
   "version": "1.0.0",
-  "description": "hello world sample for NodeJS",
+  "description": "Get BlogPost by KEY",
   "main": "app.js",
-  "repository": "https://github.com/awslabs/aws-sam-cli/tree/develop/samcli/local/init/templates/cookiecutter-aws-sam-hello-nodejs",
-  "author": "SAM CLI",
+  "repository": "https://github.com/PePires58/EscolaDeSoftware_Blog_GetBlogPost_ByKey_Fn",
+  "author": "Pedro Henrique Pires - Escola de Software",
   "license": "MIT",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.118.1",
