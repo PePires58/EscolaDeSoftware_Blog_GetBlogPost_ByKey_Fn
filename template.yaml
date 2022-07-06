@@ -26,11 +26,12 @@ Resources:
       Timeout: 1
       Policies:
         - AmazonS3ReadOnlyAccess
-        - !Join ['', [
-              'arn:aws:iam::', 
-              !Sub ${AWS::AccountId},':policy/', 
-              !Ref BlogPostTableGetItemPolicy]
-            ]
+        - Fn::Join:
+            - ""
+            - "arn:aws:iam::"
+            - !Sub ${AWS::AccountId}
+            - ":policy/"
+            - !Ref BlogPostTableGetItemPolicy
       Environment:
         Variables:
           BlogPostContentBucketName:
