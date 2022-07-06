@@ -10,6 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Restore dependencies
+        run: cd src\get-blog-post-by-key && npm install
+
       - name: Package
         run: |
           sam package --s3-bucket ${{ secrets.AWS_BUCKET_DEPLOY }} --template-file template.yaml --output-template-file deploy.yaml
