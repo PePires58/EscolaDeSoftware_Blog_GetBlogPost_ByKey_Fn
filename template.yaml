@@ -26,21 +26,13 @@ Resources:
       Timeout: 1
       Policies:
         - AmazonS3ReadOnlyAccess
-        - Fn::Join:
-            - ""
-            - "arn:aws:iam::"
-            - !Sub ${AWS::AccountId}
-            - ":policy/"
-            - !Ref BlogPostTableGetItemPolicy
+        - Fn::Join: ['',["arn:aws:iam::", !Sub ${AWS::AccountId}, ":policy/",!Ref BlogPostTableGetItemPolicy]] 
       Environment:
         Variables:
           BlogPostContentBucketName:
             !Join ["-", [!Ref Environment, !Ref S3BucketName]]
           BlogPostTableName:
-            Fn::Join:
-              - "_"
-              - !Ref Environment
-              - Fn::ImportValue: BlogPostTableName
+            Fn::Join: ["_",[!Ref Environment,Fn::ImportValue: BlogPostTableName]] 
           Region: us-east-1
 Outputs:
   GetBlogPostByKeyFunction:
