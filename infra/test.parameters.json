@@ -2,6 +2,6 @@
   "Parameters": {
     "Environment": "test",
     "S3BucketName": "blogpostcontent-bucket",
-    "BlogPostTableName": "escoladesoftware_blog_blogpost"
+    "BlogPostTableGetItemPolicy": "test_BlogPostTableGetItem_Policy"
   }
 }

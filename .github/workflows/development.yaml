@@ -1,0 +1,27 @@
+name: Nuget workflow - Development
+on:
+  push:
+    branches: [development]
+
+jobs:
+  Deploy-stack:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Package
+        run: |
+          sam package --s3-bucket ${{ secrets.AWS_BUCKET_DEPLOY }} --template-file template.yaml --output-template-file deploy.yaml
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy
+        run: |
+          aws cloudformation deploy --template-file deploy.yaml --stack-name dev-escoladesoftware-blog-blogpost-table --capabilities CAPABILITY_NAMED_IAM --parameter-overrides  file://infra/dev.parameters.json
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}

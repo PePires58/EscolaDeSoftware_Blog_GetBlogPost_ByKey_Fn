@@ -8,9 +8,6 @@ Parameters:
   S3BucketName:
     Description: S3 Bucket Name
     Type: String
-  BlogPostTableName:
-    Description: Blogpost table name
-    Type: String
   BlogPostTableGetItemPolicy:
     Description: BlogPost Table Policy
     Type: String
@@ -29,9 +26,8 @@ Resources:
       Timeout: 1
       Policies:
         - AmazonS3ReadOnlyAccess
-        - !Join [
-              '', 
-              ['arn:aws:iam::]', 
+        - !Join ['', [
+              'arn:aws:iam::', 
               !Sub ${AWS::AccountId},':policy/', 
               !Ref BlogPostTableGetItemPolicy]
             ]
@@ -40,7 +36,10 @@ Resources:
           BlogPostContentBucketName:
             !Join ["-", [!Ref Environment, !Ref S3BucketName]]
           BlogPostTableName:
-            !Join ["_", [!Ref Environment, !Ref BlogPostTableName]]
+            Fn::Join:
+              - "_"
+              - !Ref Environment
+              - Fn::ImportValue: BlogPostTableName
           Region: us-east-1
 Outputs:
   GetBlogPostByKeyFunction:
