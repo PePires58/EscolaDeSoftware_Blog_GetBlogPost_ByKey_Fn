@@ -41,8 +41,7 @@ Resources:
           BlogPostContentBucketName:
             !Join ["-", [!Ref Environment, !Ref S3BucketName]]
           BlogPostTableName:
-            Fn::Join:
-              ["_", [!Ref Environment, Fn::ImportValue: BlogPostTableName]]
+            Fn::Join: ["_", [!Ref Environment, escoladesoftware_blog_blogpost]]
           Region: us-east-1
 Outputs:
   GetBlogPostByKeyFunction:
