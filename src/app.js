@@ -1,8 +1,8 @@
 let response;
 
-const dynamodbService = require('./dynamodbService');
-const s3Service = require('./s3Service');
-const streamConverterService = require('./streamConverterService');
+const dynamodbService = require('./services/dynamodbService');
+const s3Service = require('./services/s3Service');
+const streamConverterService = require('./services/streamConverterService');
 
 exports.lambdaHandler = async (event, context) => {
     try {
