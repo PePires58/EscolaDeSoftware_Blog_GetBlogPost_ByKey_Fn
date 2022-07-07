@@ -18,7 +18,7 @@ Resources:
     Properties:
       FunctionName: !Join ["_", [!Ref Environment, GetBlogPostByKeyFn]]
       Description: Get Blogpost by key function
-      CodeUri: src/get-blog-post-by-key/
+      CodeUri: src/
       Handler: app.lambdaHandler
       Runtime: nodejs16.x
       Architectures:
