@@ -27,6 +27,7 @@ exports.lambdaHandler = async (event, context) => {
             'headers': {}
         }
     } catch (err) {
+        console.log(err);
         response = {
             'statusCode': 500,
             'body': JSON.stringify(err),
