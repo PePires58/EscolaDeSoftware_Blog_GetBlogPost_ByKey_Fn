@@ -9,6 +9,8 @@ Don't forget, to be able to connect with S3 and DynamoDB the function will need 
 - dynamodb:GetItem
 - s3:GetObject
 
-The dynamodb:GetItem is a custom manage policy, check it out at the [BlogPost table repository](https://github.com/PePires58/EscolaDeSoftware_Blog_BlogPost_Table).
+The dynamodb:GetItem is a custom manage policy, check it out at the BlogPost table repository [Click Here](https://github.com/PePires58/EscolaDeSoftware_Blog_BlogPost_Table).
+
+S3 BlogContent Bucket is defined at this repository [Click Here](https://github.com/PePires58/EscolaDeSoftware_Blog_BlogPost_ContentBucket)
 
 Thanks a lot
