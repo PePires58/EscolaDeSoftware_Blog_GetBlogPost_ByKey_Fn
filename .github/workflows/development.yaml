@@ -1,4 +1,4 @@
-name: Nuget workflow - Development
+name: Deploy lambda - Development
 on:
   push:
     branches: [development]
