@@ -1,19 +1,16 @@
 const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb");
 
-exports.GetBlogPostByKey = async function (key) {
-    if (!key) {
-        throw new Error('key is required');
-    }
-    else {
-        const client = new DynamoDBClient({ region: process.env.Region });
-        const command = new GetItemCommand({
-            TableName: process.env.BlogPostTableName,
-            Key: {
-                'title': { S: key }
-            }
-        });
-        const response = await client.send(command);
+exports.GetBlogPostByKey = async function (queryObject) {
 
-        return response.Item;
-    }
+    const client = new DynamoDBClient({ region: process.env.Region });
+    const command = new GetItemCommand({
+        TableName: process.env.BlogPostTableName,
+        Key: {
+            'id': { S: queryObject.id },
+            'title': { S: queryObject.title }
+        }
+    });
+    const response = await client.send(command);
+
+    return response.Item;
 }

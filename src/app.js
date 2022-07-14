@@ -6,7 +6,12 @@ const streamConverterService = require('./services/streamConverterService');
 
 exports.lambdaHandler = async (event, context) => {
     try {
-        const resultDb = await dynamodbService.GetBlogPostByKey(event.queryStringParameters.key);
+        const queryObject = {
+            Hash: event.headers.id,
+            Range: event.queryStringParameters.title
+        }
+
+        const resultDb = await dynamodbService.GetBlogPostByKey(queryObject);
 
         if (!resultDb) {
             response = {
@@ -19,33 +24,22 @@ exports.lambdaHandler = async (event, context) => {
         else {
             const blogContentObjectS3 = await s3Service.GetObjectByKey(resultDb.content_bucket_key.S);
 
-            if (!blogContentObjectS3) {
-                response = {
-                    'statusCode': 204,
-                    'body': 'nenhum conteudo do blogpost foi encontrado',
-                    'isBase64Encoded': false,
-                    'headers': {}
-                }
-            }
-            else {
+            const blogContentString = await streamConverterService.GetStringFromStream(blogContentObjectS3.Body);
 
-                const blogContentString = await streamConverterService.GetStringFromStream(blogContentObjectS3.Body);
+            const resultBody = {
+                Title: resultDb.title.S,
+                Category: resultDb.category.S,
+                Image_principal_key: resultDb.image_principal_key.S,
+                Post_date: resultDb.post_date.S,
+                Resume: resultDb.resume.S,
+                BlogContent: blogContentString
+            };
 
-                const resultBody = {
-                    Title: resultDb.title.S,
-                    Category: resultDb.category.S,
-                    Image_principal_key: resultDb.image_principal_key.S,
-                    Post_date: resultDb.post_date.S,
-                    Resume: resultDb.resume.S,
-                    BlogContent: blogContentString
-                };
-
-                response = {
-                    'statusCode': 200,
-                    'body': JSON.stringify(resultBody),
-                    'isBase64Encoded': false,
-                    'headers': {}
-                }
+            response = {
+                'statusCode': 200,
+                'body': JSON.stringify(resultBody),
+                'isBase64Encoded': false,
+                'headers': {}
             }
         }
     } catch (err) {
