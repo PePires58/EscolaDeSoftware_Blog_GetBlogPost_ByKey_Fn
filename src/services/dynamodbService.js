@@ -6,8 +6,8 @@ exports.GetBlogPostByKey = async function (queryObject) {
     const command = new GetItemCommand({
         TableName: process.env.BlogPostTableName,
         Key: {
-            'id': { S: queryObject.id },
-            'title': { S: queryObject.title }
+            'id': { S: queryObject.Hash },
+            'title': { S: queryObject.Range }
         }
     });
     const response = await client.send(command);
