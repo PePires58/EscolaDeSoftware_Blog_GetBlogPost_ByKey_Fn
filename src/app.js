@@ -27,6 +27,7 @@ exports.lambdaHandler = async (event, context) => {
             const blogContentString = await streamConverterService.GetStringFromStream(blogContentObjectS3.Body);
 
             const resultBody = {
+                Id: resultDb.id.S,
                 Title: resultDb.title.S,
                 Category: resultDb.category.S,
                 Image_principal_key: resultDb.image_principal_key.S,
