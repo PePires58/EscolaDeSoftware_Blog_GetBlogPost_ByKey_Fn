@@ -7,7 +7,7 @@ const streamConverterService = require('./services/streamConverterService');
 exports.lambdaHandler = async (event, context) => {
     try {
         const queryObject = {
-            Hash: event.headers.id,
+            Hash: event.headers["id"],
             Range: event.queryStringParameters.title
         }
 
