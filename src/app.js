@@ -18,7 +18,9 @@ exports.lambdaHandler = async (event, context) => {
                 'statusCode': 204,
                 'body': 'nenhum blogpost foi encontrado',
                 'isBase64Encoded': false,
-                'headers': {}
+                'headers': {
+                    'Content-Type': 'application/json'
+                }
             }
         }
         else {
@@ -40,7 +42,9 @@ exports.lambdaHandler = async (event, context) => {
                 'statusCode': 200,
                 'body': JSON.stringify(resultBody),
                 'isBase64Encoded': false,
-                'headers': {}
+                'headers': {
+                    'Content-Type': 'application/json'
+                }
             }
         }
     } catch (err) {
@@ -49,7 +53,9 @@ exports.lambdaHandler = async (event, context) => {
             'statusCode': 500,
             'body': JSON.stringify(err),
             'isBase64Encoded': false,
-            'headers': {}
+            'headers': {
+                'Content-Type': 'application/json'
+            }
         }
     }
 
